@@ -59,8 +59,10 @@ class TeleopNode(Node):
     def processKey(self, key): # Processa as teclas
         if key == '\x1b[A':  # Seta para cima
             self.current_linear_vel = min(self.current_linear_vel + LIN_VEL_STEP_SIZE, MAX_LIN_VEL)
+            self.current_angular_vel = 0.0
         elif key == '\x1b[B':  # Seta para baixo
             self.current_linear_vel = max(self.current_linear_vel - LIN_VEL_STEP_SIZE, -MAX_LIN_VEL)
+            self.current_angular_vel = 0.0
         elif key == '\x1b[D':  # Seta para esquerda
             self.current_angular_vel = min(self.current_angular_vel + ANG_VEL_STEP_SIZE, MAX_ANG_VEL)
             self.current_linear_vel = 0.0  # Zera a velocidade linear
