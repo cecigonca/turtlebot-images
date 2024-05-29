@@ -13,6 +13,7 @@ class Imagem(Node):
     def timer_callback(self):
         ret, frame = self.cap.read()
         if ret:
+            print("Sending img")
             _, buffer = cv2.imencode('.jpg', frame)
             msg = CompressedImage()
             msg.format = "jpeg"
@@ -24,6 +25,7 @@ def main(args=None):
     transmissao_imagem = Imagem()
     try:
         rclpy.spin(transmissao_imagem)
+        print("spinning img")
     except KeyboardInterrupt:
         pass
     finally:
