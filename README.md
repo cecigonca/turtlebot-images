@@ -2,13 +2,13 @@
 Incrementar o sistema do turtlebot teleoperado para incluir conceitos de streaming de imagens.
 
 ## Vídeo da Atividade
-Para visualizar na prática, assista esse [vídeo](https://drive.google.com/file/d/1Q-YPd4ftMF2uKfFxZBMDGQciblsHT9WI/view?usp=drive_link)
+Para visualizar na prática, assista esse [vídeo](https://drive.google.com/file/d/1Q-YPd4ftMF2uKfFxZBMDGQciblsHT9WI/view?usp=sharing)
 
 ## Instruções para Execução
 ### Clone o Repositório
 Coloque esse comando no terminal
 
-```git clone ```
+```git clone https://github.com/cecigonca/turtlebot-images.git```
 
 ### Ative o Ambiente Virtual (terminal Linux)
 Navegue até o diretorio
