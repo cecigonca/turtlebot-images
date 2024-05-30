@@ -21,16 +21,21 @@ Rode os comandos seguintes
 
 ```source ./venv/bin/activate```
 
-### Instalar GStreamer
+### Pré-Requisitos
+- **Ubuntu 20.04**
+- **Python 3 ou superior**
+- **Ros 2**
+- **Webots**
+- **GStreamer**
 ```sudo apt-get install libgstreamer1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly```
 
-### Instalar Numpy
+- **Instalar Numpy**
 ```pip3 install numpy```
 
-### Instalar OpenCV
+- **OpenCV**
 ```pip3 install opencv-python-headless```
 
-### Importando as Dependências
+#### Importando as Dependências
 ```python3 -m pip install -r requirements.txt```
 
 ### Comandos para rodar a atividade 
