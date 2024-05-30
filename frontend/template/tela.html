@@ -35,16 +35,69 @@
         img.src = "data:image/jpeg;base64," + message.data;
     });
 
-    var fpsTopic = new ROSLIB.Topic({
+    var latencyTopic = new ROSLIB.Topic({
         ros: ros,
-        name: '/fps',
-        messageType: 'std_msgs/String'
+        name: '/image_latency',
+        messageType: 'std_msgs/Float32'
     });
 
-    fpsTopic.subscribe(function(message) {
-        var fpsDisplay = document.getElementById('fpsDisplay');
-        fpsDisplay.innerText = message.data;
+    latencyTopic.subscribe(function(message) {
+        var latencyDisplay = document.getElementById('latencyDisplay');
+        latencyDisplay.innerText = message.data.toFixed(2) + ' ms';
     });
+
+    function sendCommand(linear, angular) {
+        var cmdVelTopic = new ROSLIB.Topic({
+            ros: ros,
+            name: '/vel',
+            messageType: 'geometry_msgs/Twist'
+        });
+
+        var twist = new ROSLIB.Message({
+            linear: {
+                x: linear,
+                y: 0.0,
+                z: 0.0
+            },
+            angular: {
+                x: 0.0,
+                y: 0.0,
+                z: angular
+            }
+        });
+
+        cmdVelTopic.publish(twist);
+    }
+
+    function moveForward() {
+        sendCommand(0.5, 0.0);
+    }
+
+    function moveBackward() {
+        sendCommand(-0.5, 0.0);
+    }
+
+    function turnLeft() {
+        sendCommand(0.0, 0.5);
+    }
+
+    function turnRight() {
+        sendCommand(0.0, -0.5);
+    }
+
+    function killNode() {
+        var killNodeClient = new ROSLIB.Service({
+            ros: ros,
+            name: '/kill_teleop_node',
+            serviceType: 'std_srvs/Empty'
+        });
+
+        var request = new ROSLIB.ServiceRequest();
+
+        killNodeClient.callService(request, function(result) {
+            console.log('Kill node service called');
+        });
+    }
     </script>
 </head>
 <body>
@@ -55,14 +108,16 @@
         <img id="videoStream" alt="Video Stream" style="width: 640px; height: 400px;" />
     </div>
     <div class="status">
-        <p>Latência: </p> <!-- valor de latência-->
-        <p></p>
+        <p>Latência: <span id="latencyDisplay">N/A</span></p>
     </div>
     <div class="botoes-movimentacao">
-        <button>Seta Direita</button>
-        <button>Seta Baixo</button>
-        <button>Seta Esquerda</button>
-        <button>Seta Cima</button>
+        <button onclick="moveForward()">Frente</button>
+        <button onclick="moveBackward()">Trás</button>
+        <button onclick="turnLeft()">Esquerda</button>
+        <button onclick="turnRight()">Direita</button>
+    </div>
+    <div>
+        <button onclick="killNode()">Matar Nó de Movimentação</button>
     </div>
 </body>
 </html>
